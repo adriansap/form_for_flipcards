@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post your questions to Flipcards</title>
+</head>
+
+<body>
+    <form id="questionSubmit">
+        <input id="category" placeholder="category"> <br>
+        <input id="question" placeholder="question"> <br>
+        <input id="answer" placeholder="answer">
+        <button id="submit">Submit</button>
+    </form>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+$("#submit").on("click", function () {
+
+event.preventDefault();
+var newQuestion = {
+  category: $("#category").val(),
+  question: $("#question").val(),
+  answer: $("#answer").val()
+}
+// Make sure to preventDefault on a submit event.
+
+
+// Send the POST request.
+$.ajax("/api/submit", {
+  type: "POST",
+  data: newQuestion
+}).then(
+  function () {
+    console.log("created new cat" + JSON.stringify(newQuestion));
+    // Reload the page to get the updated list
+    // location.reload();
+  }
+);
+});
+
+    </script>
+</body>
+</html>
